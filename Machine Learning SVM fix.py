@@ -110,7 +110,7 @@ X_train1, X_test1, y_train1, y_test1 = train_test_split(X, y_binarizer,
                                                         test_size=0.20, 
                                                         random_state=1)
 
-#Menghitung nilai ROC
+##############################Menghitung nilai ROC#############################
 from sklearn.metrics import roc_auc_score
 result_predict = model.predict_proba(X_test)
 roc_score = roc_auc_score(y_test, result_predict,multi_class='ovo', 
@@ -118,7 +118,7 @@ roc_score = roc_auc_score(y_test, result_predict,multi_class='ovo',
 result_predict.shape
 print("ROC Score from SVM = %f%%" % (roc_score*100))
 
-#Plot Grafik ROC
+##############################Plot Grafik ROC##################################
 from sklearn.metrics import roc_curve, auc
 fpr = dict()
 tpr = dict()
@@ -126,8 +126,6 @@ roc_auc = dict()
 for i in range(n_classes):
     fpr[i], tpr[i], _ = roc_curve(y_test1[:, i], result_predict[:, i])
     roc_auc[i] = auc(fpr[i], tpr[i])
-
-# Compute micro-average ROC curve and ROC area
 fpr["nano"], tpr["nano"], _ = roc_curve(y_test1.ravel(), result_predict.ravel())
 roc_auc["nano"] = auc(fpr["nano"], tpr["nano"])
 
